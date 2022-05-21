@@ -1,0 +1,9 @@
+project: chesslib
+target: chesslib
+duration: 300
+image: ghcr.io/ebell495/chesslib:latest
+
+cmds:
+    - cmd: ./fuzz.jar @@
+      env:
+        MFUZZ_JAVA: '1'
