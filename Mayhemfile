@@ -3,6 +3,10 @@ target: chesslib
 duration: 300
 image: ghcr.io/ebell495/chesslib:latest
 
+tests:
+    - file://./fuzz/corpus
+
+
 cmds:
     - cmd: ./fuzz.jar @@
       env:
