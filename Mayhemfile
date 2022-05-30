@@ -1,7 +1,8 @@
 project: chesslib
 target: fuzz
 
-tests: null
+tests:
+    - file://./fuzz/corpus
 
 
 cmds:
