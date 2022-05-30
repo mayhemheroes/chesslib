@@ -1,10 +1,7 @@
 project: chesslib
-target: chesslib
-duration: 300
-image: ghcr.io/ebell495/chesslib:latest
+target: fuzz
 
-tests:
-    - file://./fuzz/corpus
+tests: null
 
 
 cmds:
