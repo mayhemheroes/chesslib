@@ -1,11 +1,11 @@
 project: chesslib
-target: fuzz
+target: fuzz-chess-board-loader
 
 testsuite:
     - file://./fuzz/corpus
 
 
 cmds:
-    - cmd: ./fuzz.jar @@
+    - cmd: ./fuzz_chess_board_loader.jar @@
       env:
         MFUZZ_JAVA: '1'
