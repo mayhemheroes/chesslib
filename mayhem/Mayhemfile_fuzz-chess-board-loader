@@ -1,0 +1,22 @@
+project: chesslib
+target: fuzz-chess-board-loader
+
+# Jazzer (libFuzzer-compatible) target. The `cmd` is a small native ELF launcher
+# (/mayhem/fuzz_chess_board_loader) that execs the Jazzer driver with the baked classpath
+# (harness classes + chesslib + commons-lang3), --target_class=fuzz_chess_board_loader,
+# --instrumentation_includes for chesslib only, and --jvm_args that cap + trim the JVM
+# (-Xmx1024m:-XX:+UseSerialGC:-XX:-UsePerfData), and forwards any libFuzzer args Mayhem appends.
+# Fuzzes Board.loadFromFen(fen) + legalMoves()/isMated() on the parsed board.
+#
+# NOTE: the JVM tuning is passed via the launcher's --jvm_args, NOT a JAVA_TOOL_OPTIONS env var.
+# JAVA_TOOL_OPTIONS makes the JVM print "Picked up JAVA_TOOL_OPTIONS: ..." to stderr on every
+# launch, which pollutes the libFuzzer stdout/stderr protocol so Mayhem rejects the target as
+# "output did not match the expected libFuzzer format" and reports 0 edges. --jvm_args prints no
+# banner, so only JAVA_HOME/PATH belong in this env.
+
+cmds:
+    - cmd: /mayhem/fuzz_chess_board_loader
+      libfuzzer: true
+      env:
+        JAVA_HOME: /opt/jdk
+        PATH: /opt/jdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
